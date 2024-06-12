@@ -37,6 +37,12 @@
                     </div>
 
                     <div class="mb-2">
+                        <label for="course_id" class="form-label">Course</label>
+                        <input type="text" name="course_id" id="course_id" class="form-control" value="{{ $student->course_id ?? '' }}">
+                        
+                    </div>
+
+                    <div class="mb-2">
                         <label for="class" class="form-label">Class</label>
                         <input type="text" name="class" id="class" class="form-control" value="{{ $student->class ?? '' }}">
                     </div>

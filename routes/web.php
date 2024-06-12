@@ -1,15 +1,27 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
-use Illuminate\Support\Facades\Route;
+
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // route untuk menampilkan halaman student
 Route::get('/admin/student', [StudentController::class, 'index']);
@@ -48,10 +60,9 @@ Route::put('/admin/courses/update/{id}', [CoursesController::class, 'update']);
 //route untuk menghapus student
 Route::delete('/admin/courses/delete/{id}', [CoursesController::class, 'destroy']);
 
-/**
- * HTTP Method:
- * 1. Get    : Untuk menampilkan halaman
- * 2. Post   : untuk mengirim data
- * 3. Put    : Untuk mengupdate data
- * 4. Delete : Untuk menghapus data
- */
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
