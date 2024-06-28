@@ -38,8 +38,12 @@
 
                     <div class="mb-2">
                         <label for="course_id" class="form-label">Course</label>
-                        <input type="text" name="course_id" id="course_id" class="form-control" value="{{ $student->course_id ?? '' }}">
-                        
+                        <select name="course_id" id="course_id" class="form-select">
+                            <option value="">Choose a Courses</option>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}" {{ $student->courses_id == $course->id ? 'selected' : '' }}>{{ $course->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-2">
